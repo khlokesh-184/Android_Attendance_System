@@ -59,7 +59,11 @@ public class LoginActivity  extends AppCompatActivity implements
 
     String personName;
     String email;
+    int signout;
 
+//    public void LoginActivity(){
+//
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +84,8 @@ public class LoginActivity  extends AppCompatActivity implements
         btnSignIn.setOnClickListener(this);
         //btnSignOut.setOnClickListener(this);
         //btnRevokeAccess.setOnClickListener(this);
+
+
 
         Button restore_Backup = (Button) findViewById(R.id.button_backup);
         Button skip_restore = (Button) findViewById(R.id.button_skip);
@@ -118,6 +124,7 @@ public class LoginActivity  extends AppCompatActivity implements
         // Customizing G+ button
         btnSignIn.setSize(SignInButton.SIZE_STANDARD);
         btnSignIn.setScopes(gso.getScopeArray());
+
     }
 
 
@@ -127,14 +134,17 @@ public class LoginActivity  extends AppCompatActivity implements
     }
 
 
-    private void signOut() {
+    public void signOut() {
+
         Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
                 new ResultCallback<Status>() {
                     @Override
                     public void onResult(Status status) {
                         updateUI(false);
+
                     }
                 });
+
     }
 
     private void revokeAccess() {
@@ -143,6 +153,7 @@ public class LoginActivity  extends AppCompatActivity implements
                     @Override
                     public void onResult(Status status) {
                         updateUI(false);
+                        //signOut();
                     }
                 });
     }
@@ -209,6 +220,7 @@ public class LoginActivity  extends AppCompatActivity implements
 
     @Override
     public void onStart() {
+        mGoogleApiClient.connect();
         super.onStart();
 
         OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
@@ -217,6 +229,7 @@ public class LoginActivity  extends AppCompatActivity implements
             // and the GoogleSignInResult will be available instantly.
             Log.d(TAG, "Got cached sign-in");
             GoogleSignInResult result = opr.get();
+
             handleSignInResult(result);
         } else {
             // If the user has not previously signed in on this device or the sign-in has expired,
@@ -231,6 +244,8 @@ public class LoginActivity  extends AppCompatActivity implements
                 }
             });
         }
+
+
     }
 
     @Override
@@ -292,7 +307,8 @@ public class LoginActivity  extends AppCompatActivity implements
 
     protected void goToMainActivity(){
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(intent);
         finish();
+        startActivity(intent);
+
     }
 }

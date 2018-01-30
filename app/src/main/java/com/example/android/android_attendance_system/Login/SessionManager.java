@@ -5,8 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.android.android_attendance_system.MainActivity;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 
 import java.util.HashMap;
 
@@ -14,7 +22,7 @@ import java.util.HashMap;
  * Created by LOKESH on 26-01-2018.
  */
 
-public class SessionManager {
+public class SessionManager  extends AppCompatActivity {
     // Shared Preferences
     SharedPreferences pref;
 
@@ -23,6 +31,8 @@ public class SessionManager {
 
     // Context
     Context _context;
+
+    //private GoogleApiClient mGoogleApiClient;
 
     // Shared pref mode
     int PRIVATE_MODE = 0;
@@ -70,17 +80,6 @@ public class SessionManager {
      * Else won't do anything
      * */
     public boolean checkLogin(){
-        // Check login status
-//        // user is not logged in redirect him to Login Activity
-//        Intent i = new Intent(_context, LoginActivity.class);
-//        // Closing all the Activities
-//        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//
-//        // Add new Flag to start new Activity
-//        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//
-//        // Staring Login Activity
-//        _context.startActivity(i);
         if(!this.isLoggedIn()){
             // user is not logged in redirect him to Login Activity
             Intent i = new Intent(_context, LoginActivity.class);
@@ -90,6 +89,7 @@ public class SessionManager {
             // Add new Flag to start new Activity
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
+            Log.i("asdfghjk","khdhdhd");
             // Staring Login Activity
             _context.startActivity(i);
             return false;
@@ -114,6 +114,7 @@ public class SessionManager {
         return user;
     }
 
+
     /**
      * Clear session details
      * */
@@ -121,15 +122,21 @@ public class SessionManager {
         // Clearing all data from Shared Preferences
         editor.clear();
         editor.commit();
+        //check!!!!
+//        LoginActivity l = new LoginActivity();
+//        l.signOut();
 
         // After logout redirect user to Loing Activity
         Intent i = new Intent(_context, LoginActivity.class);
+        //i.putExtra("signout", 1);
         // Closing all the Activities
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         // Add new Flag to start new Activity
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //signOut();
 
+        Log.i("asdfgh", "Logout " );
         // Staring Login Activity
         _context.startActivity(i);
     }

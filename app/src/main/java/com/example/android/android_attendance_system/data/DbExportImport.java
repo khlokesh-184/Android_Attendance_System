@@ -212,7 +212,7 @@ public class DbExportImport {
 
     /** Given an SQLite database file, this checks if the file
      * is a valid SQLite database and that it contains all the
-     * columns represented by DbAdapter.ALL_COLUMN_KEYS **/
+     * columns represented by ALL_COLUMN_KEYS **/
     protected static boolean checkDbIsValid( File db , String database){
         //Log.i("mlkjhgff", "File does not exist");
         try{

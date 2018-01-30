@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.android.android_attendance_system.Login.SessionManager;
 import com.example.android.android_attendance_system.data.Dbhelper;
 import com.example.android.android_attendance_system.model.Batch;
 
@@ -54,6 +55,9 @@ public class AddNewBatch extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_batch);
         Intent intent = getIntent();
         s=intent.getExtras().get("@strings/AddingBatch").toString();
+
+        SessionManager see = new SessionManager(this);
+        see.checkLogin();
 
         Log.i("intentvalue",s);
         if(Integer.parseInt(s)==1) {
